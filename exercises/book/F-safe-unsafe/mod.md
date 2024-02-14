@@ -1,6 +1,5 @@
 # Module F - Safe and Unsafe rust 
 
-[Slides](/slides/F/) (or [pdf](/slides/F-safe-unsafe-rust.pdf))
 
 ## C.1 Linked List ★★★
 

@@ -87,7 +87,7 @@ More info: <https://www.youtube.com/playlist?list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJr
 
 ## Course code
 Now that everything is installed, you can clone the source code repository.
-The repository can be found here: <https://github.com/tweedegolf/101-rs>.
+The repository can be found here: <https://github.com/fiit-ba/rust-course>.
 
 To clone the repository, you'll need an account on GitHub.
 Make sure you have one, it will serve you well, even outside this workshop.
@@ -107,7 +107,7 @@ It will compile and run the `intro` package, which you can find in `exercises/0-
 If everything goes well, you should see some output:
 
 ```
-   Compiling intro v0.1.0 (/home/henkdieter/tg/edu/101-rs/exercises/0-intro)
+   Compiling intro v0.1.0 (/home/edu/101-rs/exercises/0-intro)
     Finished dev [unoptimized + debuginfo] target(s) in 0.11s
      Running `target/debug/intro`
 🦀 Hello, world! 🦀

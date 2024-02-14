@@ -17,15 +17,6 @@ Module C: concurrency and parallelism
 <!-- TODO add subject code -->
 
 ---
-layout: three-slots
----
-## Who am i?
-::left::
-- I'm Folkert
-- work on Network Time Protocol and other systems programming things
-- work on the Roc compiler (and other low-level shenanigans)
-
----
 layout: default
 ---
 # Last time...

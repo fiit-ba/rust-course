@@ -1434,15 +1434,12 @@ fn string_len(data: &str) -> usize {
 # Exercises
 
 * We'll be doing the A2 excercises, see [https://101-rs.tweede.golf](https://101-rs.tweede.golf/A2-advanced-intro/mod.html)
-* To keep in contact we will use Discord: https://discord.gg/pzv92cAZ
-* Join one of the voice channels and ask us to join you in the `#lab-sessions` channel when you need help!
 * Don't hesitate to ask when you get stuck!
 
 <div class="relative left-100px">
 
 <Transform scale="0.7">
 
-![Discord](/images/A2-discord.svg)
 
 </Transform>
 

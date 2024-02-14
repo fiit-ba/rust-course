@@ -18,55 +18,6 @@ A language empowering everyone
 to build reliable and efficient software.
 
 ---
-layout: three-slots
----
-
-# Who are we?
-
-::left::
-
-##  Henk Oordt
-- Embedded software engineer
-- 4 year Rust experience
-- Work on IoT device using Rust
-- Main contact
-
-::right::
-<img src="https://tweedegolf.nl/images/henk.jpg" alt="Photo Henk" width="300" />
-
----
-layout: three-slots
----
-
-# Who are we?
-
-::left::
-
-##  Folkert de Vries
-- Embedded software engineer
-- Write compiler in spare time with Rust
-- 3 years of Rust experience
-
-::right::
-<img src="https://tweedegolf.nl/images/folkert.jpg" alt="Photo Folkert" width="300" />
-
----
-layout: three-slots
----
-
-# Who are we?
-
-::left::
-
-##  Ruben Nijveld
-- Software engineer
-- Rust for web and systems programming
-- Introduced Rust at our company
-
-::right::
-<img src="https://tweedegolf.nl/images/ruben.jpg" alt="Photo Ruben" width="300" />
-
----
 layout: default
 ---
 # What you'll learn
@@ -145,7 +96,7 @@ layout: default
   - [Rust Analyzer plugin](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
   - [Live share plugin](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack)
 - [Rust playground](https://play.rust-lang.org/)
-- [Rust 101 repo on GitHub](https://github.com/tweedegolf/101-rs)
+- [Rust repo on GitHub](https://github.com/fiit-ba/rust-course)
 
 ---
 layout: default

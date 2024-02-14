@@ -1224,7 +1224,6 @@ layout: default
 ---
 # Practicalities
 
-- Follow installation instructions: https://101-rs.tweede.golf
 - Exercises A1 during tutorial
 - Help each other out!
 

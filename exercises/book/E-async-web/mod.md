@@ -1,6 +1,5 @@
 # Module E - Async and Rust for Web
 
-[Slides](/slides/E/) (or [pdf](/slides/E-async-web.pdf))
 
 ## E.1 Channels
 Channels are a very useful way to communicate between threads and `async` tasks. They allow for decoupling your application into many tasks. You'll see how that can come in nicely in exercise E.2. In this exercise, you'll implement two variants: a oneshot channel and a multi-producer-single-consumer (MPSC) channel. If you're up for a challenge, you can write a broadcast channel as well.

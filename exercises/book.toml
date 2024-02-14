@@ -1,6 +1,6 @@
 [book]
-authors = ["Henk Oordt"]
-title = "Rust 101 - Exercises"
+authors = ["Tweede Golf"]
+title = "Rust 101 - Exercises (created for FIIT STU)"
 
 src = "book"
 language = "en"

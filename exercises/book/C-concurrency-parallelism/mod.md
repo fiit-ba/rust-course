@@ -1,14 +1,13 @@
 # Module C - Concurrency & Parallelism 
 
-[Slides](/slides/C/) (or [pdf](/slides/C-concurrency-parallelism.pdf))
 
 ## C.1 TF-IDF ★★ 
 
-Follow the instructions in the comments of `excercises/C/1-tf-ifd/src/main.rs`!
+Follow the instructions in the comments of `exercises/C/1-tf-ifd/src/main.rs`!
 
 ## C.2 Basic Mutex ★★★
 
-Follow the instructions in the comments of `excercises/C/2-mutex/src/main.rs`!
+Follow the instructions in the comments of `exercises/C/2-mutex/src/main.rs`!
 
 ## C.3 Advanced Mutex (bonus) ★★★★
 

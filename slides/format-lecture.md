@@ -16,14 +16,6 @@ Module X: description
 <!-- Start with welcome, students entering -->
 <!-- TODO add subject code -->
 
----
-layout: three-slots
----
-## Who am i?
-::left::
-- Ferris
-- I Love Rust
-
 ::right::
 <img src="https://rustacean.net/assets/rustacean-orig-noshadow.png" alt="Photo Ferris" width="300" />
 <!-- Optionally quickly introduce yourself, add photo -->

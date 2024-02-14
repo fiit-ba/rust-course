@@ -1,6 +1,5 @@
 # Module D - Trait objects and Rust patterns
 
-[Slides](/slides/D/) (or [pdf](/slides/D-trait-objects-patterns.pdf))
 
 ## D.1 BSN
 The BSN (Burgerservicennummer) is a Dutch personal identification number that somewhat resembles the US Social Security Number in its use.

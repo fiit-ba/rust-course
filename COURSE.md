@@ -290,7 +290,7 @@ This module is about learning to write actual Rust applications. At the end of t
 #### Structure
 - Work in teams of 2
 - Hand in proposal in week 7
-- Write small report (2-3 pages), to be handed in in week 12
+- Write small report (3 pages ideally), to be handed in in week 12
     - Introduction
     - Requirements
     - Design diagram

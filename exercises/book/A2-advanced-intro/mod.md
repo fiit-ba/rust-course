@@ -1,6 +1,5 @@
 # Module A2 - Advanced Syntax, Ownership, references
 
-[Slides](/slides/A2/) (or [pdf](/slides/A2-advanced-intro.pdf))
 
 ## A2.0 Borrowing
 
