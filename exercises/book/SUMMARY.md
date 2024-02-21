@@ -2,8 +2,9 @@
 
 - [0 - Installation](./0-install/mod.md)
 - [A1 - Language basics](./A1-language-basics/mod.md)
-- [A2 - Advanced Syntax, Ownership, references](./A2-advanced-intro/mod.md)
-- [A3 - Traits and generics](./A3-traits-generics/mod.md)
+- [A2 - Rust ecosystem](./A2-rust-ecosystem/mod.md)
+- [A3 - Advanced Syntax, Ownership, references](./A3-advanced-intro/mod.md)
+- [A4 - Traits and generics](./A4-traits-generics/mod.md)
 - [B - Application programming](./B-application-programming/mod.md)
 - [C - Concurrency & Parallelism](./C-concurrency-parallelism/mod.md)
 - [D - Trait objects and Rust patterns](./D-trait-objects-patterns/mod.md)
