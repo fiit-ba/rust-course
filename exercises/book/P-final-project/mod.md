@@ -8,7 +8,7 @@ It is time to submit a proposal for the final project.
 
 ## Proposal
 
-The proposal needs to be submitted by _30th of March, 2024_ by opening a Github repo, placing your proposal there, and either making it public or granting access to [`@xkostal`](https://github.com/hdoordt/) & [`@nasimbahar`](https://github.com/nasimbahar). Then, please send Nasim and Kristian a link to the repository via message so we know where to find it.
+The proposal needs to be submitted by _20th of March, 2024_ by opening a Github repo, placing your proposal there, and either making it public or granting access to [`@xkostal`](https://github.com/hdoordt/) & [`@nasimbahar`](https://github.com/nasimbahar). Then, please send Nasim and Kristian a link to the repository via message so we know where to find it.
 
 The proposal must contain the following sections:
 - Your names
@@ -19,11 +19,11 @@ The proposal must contain the following sections:
 
 Of course, if you want to discuss your idea before handing in your proposal, or if you have any other questions, please reach out via message.
 
-Any reparations to the proposals must be handed in on the _6th of April 2024_
+Any reparations to the proposals must be handed in on the _30th of March 2024_
 
 ## Final product
 
-At the end of the project following will be required (deadline is the _5th of May, 2024_)
+At the end of the project following will be required (deadline is the _24th of April, 2024_)
 
 - The source of your project (GitHub)
 - A live 10 minute presentation, including a _short_ demonstration (and an additional 2 minutes for questions) during the final lecture
