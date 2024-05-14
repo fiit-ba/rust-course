@@ -2,7 +2,6 @@ node_modules
 .DS_Store
 dist
 dist-*
-/*.pdf
 tmp/
 yarn-error.log
 */**/target
