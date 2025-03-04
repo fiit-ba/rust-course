@@ -8,7 +8,7 @@ It is time to submit a proposal for the final project.
 
 ## Proposal
 
-The proposal needs to be submitted by _20th of March, 2024_ by opening a Github repo, placing your proposal there, and either making it public or granting access to [`@xkostal`](https://github.com/hdoordt/) & [`@nasimbahar`](https://github.com/nasimbahar). Then, please send Nasim and Kristian a link to the repository via message so we know where to find it.
+The proposal needs to be submitted by _19th of March, 2025_ by opening a Github repo, placing your proposal there, and either making it public or granting access to [`@xkostal`](https://github.com/xkostal/) & [`@lukacoff`](https://github.com/lukacoff). Then, please send Lukas and Kristian a link to the repository via message so we know where to find it.
 
 The proposal must contain the following sections:
 - Your names
@@ -19,11 +19,11 @@ The proposal must contain the following sections:
 
 Of course, if you want to discuss your idea before handing in your proposal, or if you have any other questions, please reach out via message.
 
-Any reparations to the proposals must be handed in on the _30th of March 2024_
+Any reparations to the proposals must be handed in on the _30th of March 2025_
 
 ## Final product
 
-At the end of the project following will be required (deadline is the _24th of April, 2024_)
+At the end of the project following will be required (deadline is the _14th of May, 2025_)
 
 - The source of your project (GitHub)
 - A live 10 minute presentation, including a _short_ demonstration (and an additional 2 minutes for questions) during the final lecture
@@ -50,13 +50,14 @@ You are encouraged to suggest your own project, here are some suggestions. We wi
 - Implement a more complex data structure
     - implement and benchmark a doubly linked list
     - benchmark the ntpd-rs ipfilter <https://github.com/pendulum-project/ntpd-rs/blob/main/ntp-daemon/src/ipfilter.rs>
-    - add "seamless slices" to the Rust implementation of `RocList` (ask Folkert)
+    - add "seamless slices" to the Rust implementation of `RocList`
     - Image renderer and manipulator (PNG, SVG)
     - Implement a simple HTTP1 static file server on raw TCP sockets
+    - implement a blockchain client for some of the networks or complex decentralized application on one of the Rust-supported chains
 - Programming languages
     - an interpreter for False (<https://strlen.com/false-language/>)
     - an interpreter for (a subset of) webassembly
-    - contribute to Roc (Folkert is a maintainer and will help you)
+    - contribute to Roc
     - An implementation of Lox (<https://craftinginterpreters.com/>)
 - Develop a simple OS (<https://os.phil-opp.com/>)
 - Make an open source contribution
