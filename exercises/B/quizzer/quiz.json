@@ -1,0 +1,11 @@
+{
+  "name": "quiz",
+  "file": "quiz.json",
+  "questions": [
+    {
+      "question": "5+1",
+      "correct_answer": "6",
+      "other_answers": ["9", "1", "5"]
+    }
+  ]
+}
