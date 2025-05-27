@@ -1,6 +1,5 @@
 /// While taking a first stab at programs, using panic!() is a quick-and-dirty way to do error handling; but panic!() has the obvious drawback
 /// that it is all-or-nothing: you cannot recover from it (in general).
-
 // Consider this "interactive hello world" (that is a bit fussy about what is a valid name), where the intent is that the program repeats
 // the question if the user entered an invalid name.
 //
@@ -20,35 +19,64 @@
 //
 // NOTE: You will (hopefully) discover that "?" doesn't work in this context, and the resulting code
 // is a bit explicit about the errors --- we can solve that with traits, next week!
-
-use std::io::{BufRead, self, Write};
+use std::io::{self, BufRead, Write};
 
 #[derive(Debug)]
-enum MyError{ InvalidName,IOError( io::Error),
+enum MyError {
+    InvalidName,
+    IOError(io::Error),
 }
 
-fn get_username( )
-->  String
-{
+fn get_username() -> Result<String, MyError> {
     print!("Username: ");
-    io::stdout().flush();
-
-    let mut input=String::new();
-    io::stdin().lock().read_line(&mut input); input=input.trim().to_string();
-
-    for c in input.chars()
-    {
-	if !char::is_alphabetic(c) { panic!("that's not a valid name, try again"); }
+    match io::stdout().flush() {
+        Err(err) => {
+            return Err(MyError::IOError(err));
+        }
+        _ => (),
     }
 
-if input.is_empty() {
-panic!("that's not a valid name, try again");
-}
+    let mut input = String::new();
+    match io::stdin().lock().read_line(&mut input) {
+        Err(err) => {
+            return Err(MyError::IOError(err));
+        }
+        _ => (),
+    }
+    input = input.trim().to_string();
 
-    input
+    if input.is_empty() {
+        return Err(MyError::InvalidName);
+    }
+
+    for c in input.chars() {
+        if !char::is_alphabetic(c) {
+            return Err(MyError::InvalidName);
+        }
+    }
+
+    Ok(input)
 }
 
 fn main() {
-    let name=get_username();
-    println!("Hello {name}!")
+    let username: String;
+    loop {
+        let res = get_username();
+
+        if res.is_ok() {
+            username = res.unwrap();
+            break;
+        }
+
+        match res.unwrap_err() {
+            MyError::InvalidName => {
+                continue;
+            }
+            MyError::IOError(e) => {
+                eprint!("IOError {}", e);
+                return;
+            }
+        };
+    }
+    println!("Hello {}!", username);
 }

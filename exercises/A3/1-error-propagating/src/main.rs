@@ -13,38 +13,52 @@
 //
 // 2) handle these errors in main, reporting any error that occurred in main() using eprintln!
 
-use std::env;
 use std::fs::File;
-use std::io::{self, BufRead, BufReader, Lines};
+use std::io::{BufRead, BufReader, Lines};
+use std::{env, io};
 
-//change this into:
-//fn read_lines(filename: &str) -> Result<Lines<BufReader<File>>, io::Error> {
-fn read_lines(filename: &str) -> Lines<BufReader<File>> {
-    let file = File::open(filename).unwrap(); // this can easily fail
-    BufReader::new(file).lines()
+fn read_lines(filename: &str) -> Result<Lines<BufReader<File>>, io::Error> {
+    match File::open(filename) {
+        Ok(file) => Ok(BufReader::new(file).lines()),
+        Err(e) => Err(e),
+    }
 }
 
-//change this into:
-//fn count_bytes_and_lines(filename: &str) -> Result<(usize, usize, usize), io::Error> {
-fn count_bytes_and_lines(filename: &str) -> (usize, usize, usize) {
-    let lines = read_lines(filename);
+fn count_bytes_and_lines(filename: &str) -> Result<(usize, usize, usize), io::Error> {
+    let lines = match read_lines(filename) {
+        Ok(lines) => lines,
+        Err(err) => {
+            return Err(err);
+        }
+    };
     let mut line_count = 0;
     let mut word_count = 0;
     let mut byte_count = 0;
     for line in lines {
-        let text = line.unwrap(); // this will usually not fail
+        let text = match line {
+            Ok(text) => text,
+            Err(err) => {
+                return Err(err);
+            }
+        };
         line_count += 1;
         word_count += text.split_whitespace().count();
         byte_count += text.len();
     }
 
-    (line_count, word_count, byte_count)
+    Ok((line_count, word_count, byte_count))
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
     let filename = &args[1];
 
-    let (lines, words, bytes) = count_bytes_and_lines(filename);
+    let (lines, words, bytes) = match count_bytes_and_lines(filename) {
+        Ok(tuple) => tuple,
+        Err(err) => {
+            eprintln!("Error: {}", err);
+            return;
+        }
+    };
     println!("{filename}: {lines} lines, {words} words, {bytes} bytes");
 }

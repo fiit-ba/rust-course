@@ -10,8 +10,8 @@
 fn merge(a: &[i32], b: &[i32]) -> Vec<i32> {
     let mut dest = Vec::new();
 
-    let a_idx = 0;
-    let b_idx = 0;
+    let mut a_idx = 0;
+    let mut b_idx = 0;
 
     while a_idx < a.len() && b_idx < b.len() {
         if a[a_idx] <= b[b_idx] {
@@ -23,11 +23,11 @@ fn merge(a: &[i32], b: &[i32]) -> Vec<i32> {
         }
     }
 
-    for elem in a[a_idx..] {
-        dest.push(elem)
+    for elem in a[a_idx..].iter() {
+        dest.push(*elem)
     }
-    for elem in b[b_idx..] {
-        dest.push(elem)
+    for elem in b[b_idx..].iter() {
+        dest.push(*elem)
     }
 
     dest
@@ -36,8 +36,9 @@ fn merge(a: &[i32], b: &[i32]) -> Vec<i32> {
 /// Take an array slice, and sort into a freshly constructed vector using the above function
 fn merge_sort(data: &[i32]) -> Vec<i32> {
     if data.len() > 1 {
-        // implement this
-        todo!()
+        let mid = data.len() / 2;
+        let (left, right) = data.split_at(mid);
+        merge(&merge_sort(left), &merge_sort(right))
     } else {
         data.to_vec()
     }
@@ -73,10 +74,13 @@ mod test {
 
     #[test]
     fn test_sort() {
-	assert_eq!(merge_sort(&[]), vec![]);
-	assert_eq!(merge_sort(&[5]), vec![5]);
-	assert_eq!(merge_sort(&[1,2,3]), vec![1,2,3]);
-	assert_eq!(merge_sort(&[47,42,5,1]), vec![1,5,42,47]);
-	assert_eq!(merge_sort(&[6,47,42,5,1,123]), vec![1,5,6,42,47,123]);
+        assert_eq!(merge_sort(&[]), vec![]);
+        assert_eq!(merge_sort(&[5]), vec![5]);
+        assert_eq!(merge_sort(&[1, 2, 3]), vec![1, 2, 3]);
+        assert_eq!(merge_sort(&[47, 42, 5, 1]), vec![1, 5, 42, 47]);
+        assert_eq!(
+            merge_sort(&[6, 47, 42, 5, 1, 123]),
+            vec![1, 5, 6, 42, 47, 123]
+        );
     }
 }
