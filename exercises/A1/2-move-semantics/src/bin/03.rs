@@ -12,7 +12,8 @@ fn main() {
     println!("{} == `{}`", stringify!(s1), s1);
 }
 
-fn append_to_string(s: String) -> String {
+// declare `s` as mutable ownership
+fn append_to_string(mut s: String) -> String {
     s.push_str("Hello World");
 
     s
