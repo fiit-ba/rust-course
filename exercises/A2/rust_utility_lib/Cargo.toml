@@ -1,0 +1,14 @@
+[package]
+name = "rust_utility_lib"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A powerful utility library for string manipulation, file operations, and data processing"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rand = "0.8"
+
+[dev-dependencies]
+tempfile = "3.8"
