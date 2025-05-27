@@ -53,7 +53,12 @@ impl LinkedList {
 
 impl Drop for LinkedList {
     fn drop(&mut self) {
-        // TODO: implement drop
+        // This recursively drops all nodes in the list.
+        // When `_boxed_node` (Box<Node>) is dropped, its `rest` field (LinkedList)
+        // is also dropped, triggering this `drop` method for the next node.
+        if !self.0.is_null() {
+            let _boxed_node = unsafe { Box::from_raw(self.0) };
+        }
     }
 }
 
@@ -66,11 +71,23 @@ impl<'a> Iterator for Iter<'a> {
     type Item = u64;
 
     fn next(&mut self) -> Option<Self::Item> {
-        // TODO: implement the next function
-        //
         // make sure that `Node` values are never dropped here! An implementation is possible
         // without any of the `std::ptr` functions, just dereferencing is sufficient.
-        None
+
+        if self.list.is_null() {
+            None
+        } else {
+            unsafe {
+                // Dereference the pointer to get a reference to the Node
+                let node_ref = &*self.list;
+                let current_value = node_ref.current;
+
+                // Move to the next node
+                self.list = node_ref.rest.0;
+
+                Some(current_value)
+            }
+        }
     }
 }
 
@@ -83,9 +100,30 @@ impl LinkedList {
     }
 
     fn reverse(&mut self) {
-        // TODO: reverse the linked list in-place. The general approach is to start with a new empty
-        // linked list, and move elements from self over to this new list. Finally update self with
-        // the new list.
+        let mut prev_ptr: *mut Node = std::ptr::null_mut();
+        let mut current_ptr: *mut Node = self.0; // Start with the head
+
+        while !current_ptr.is_null() {
+            // `current_ptr` is known to be non-null here.
+            // We get a mutable reference to the node it points to.
+            // This is unsafe because we are dereferencing a raw pointer.
+            // It's assumed to be safe because `&mut self` gives exclusive
+            // access to the list structure, and `current_ptr` is part of this structure.
+            let current_node_mut_ref = unsafe { &mut *current_ptr };
+
+            // Store the next node in the original list before we change `rest`.
+            let next_ptr: *mut Node = current_node_mut_ref.rest.0;
+
+            // Reverse the `rest` pointer of the current node.
+            // It should now point to the `prev_ptr`.
+            current_node_mut_ref.rest.0 = prev_ptr;
+
+            // Move `prev_ptr` and `current_ptr` one step forward.
+            prev_ptr = current_ptr;
+            current_ptr = next_ptr;
+        }
+
+        self.0 = prev_ptr;
     }
 }
 

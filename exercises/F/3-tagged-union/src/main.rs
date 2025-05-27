@@ -1,4 +1,4 @@
-use std::mem::ManuallyDrop;
+use std::{mem::ManuallyDrop, ops::Deref};
 
 // An implementation of the `Result` type using explicitly tagged unions
 //
@@ -30,34 +30,73 @@ union RocResultUnion<T, E> {
 impl<T, E> Drop for RocResult<T, E> {
     fn drop(&mut self) {
         // implement drop. Make sure values wrapped in a ManuallyDrop are dropped correctly!
-        todo!()
+        match self.tag {
+            RocResultTag::Ok => unsafe {
+                ManuallyDrop::drop(&mut self.payload.ok);
+            },
+            RocResultTag::Err => unsafe {
+                ManuallyDrop::drop(&mut self.payload.err);
+            },
+        }
     }
 }
 
-impl<T, E> Clone for RocResult<T, E> {
+impl<T: Clone, E: Clone> Clone for RocResult<T, E> {
     fn clone(&self) -> Self {
-        todo!()
+        match self.tag {
+            RocResultTag::Ok => RocResult::ok(unsafe { self.payload.ok.deref().clone() }),
+            RocResultTag::Err => RocResult::err(unsafe { self.payload.err.deref().clone() }),
+        }
     }
 }
 
 impl<T, E> RocResult<T, E> {
-    fn unwrap(mut self) -> T {
-        match self.tag {
-            RocResultTag::Ok => unsafe { ManuallyDrop::take(&mut self.payload.ok) },
-            RocResultTag::Err => panic!("Called `unwrap` on an Err"),
+    fn unwrap(self) -> T {
+        if self.tag == RocResultTag::Ok {
+            unsafe {
+                // Read the ManuallyDrop<T> out of the union.
+                let md_payload = std::ptr::read(&self.payload.ok);
+                // Forget the RocResult shell to prevent its Drop from running on the (now invalid) payload.
+                std::mem::forget(self);
+                ManuallyDrop::into_inner(md_payload) // Get T
+            }
+        } else {
+            // If it's an Err, self (which is Err(e)) will be dropped when panic unwinds.
+            // RocResult::drop will correctly drop the E payload.
+            panic!("Called `unwrap` on an Err");
         }
     }
 
     fn unwrap_err(mut self) -> E {
-        todo!()
+        if self.tag == RocResultTag::Err {
+            unsafe {
+                let md_payload = std::ptr::read(&self.payload.err);
+                std::mem::forget(self); // Forget self as we've taken its Err payload
+                ManuallyDrop::into_inner(md_payload)
+            }
+        } else {
+            // If it's an Ok, self (which is Ok(t)) will be dropped when panic unwinds.
+            // RocResult::drop will correctly drop the T payload.
+            panic!("Called `unwrap_err` on an Ok");
+        }
     }
 
     fn ok(v: T) -> Self {
-        todo!()
+        RocResult {
+            tag: RocResultTag::Ok,
+            payload: RocResultUnion {
+                ok: ManuallyDrop::new(v),
+            },
+        }
     }
 
     fn err(e: E) -> Self {
-        todo!()
+        RocResult {
+            tag: RocResultTag::Err,
+            payload: RocResultUnion {
+                err: ManuallyDrop::new(e),
+            },
+        }
     }
 
     fn is_ok(&self) -> bool {
@@ -65,26 +104,55 @@ impl<T, E> RocResult<T, E> {
     }
 
     fn is_err(&self) -> bool {
-        todo!()
+        matches!(self.tag, RocResultTag::Err)
     }
 
     fn map<F, U>(mut self, f: F) -> RocResult<U, E>
     where
         F: FnOnce(T) -> U,
     {
-        todo!()
+        match self.tag {
+            RocResultTag::Ok => {
+                let value = unsafe { ManuallyDrop::take(&mut self.payload.ok) };
+                RocResult::ok(f(value))
+            }
+            RocResultTag::Err => {
+                let err = unsafe { ManuallyDrop::take(&mut self.payload.err) };
+                RocResult::err(err)
+            }
+        }
     }
 }
 
 impl<T, E> From<RocResult<T, E>> for Result<T, E> {
-    fn from(value: RocResult<T, E>) -> Self {
-        todo!()
+    fn from(mut value: RocResult<T, E>) -> Self {
+        match value.tag {
+            RocResultTag::Ok => {
+                let t = unsafe {
+                    let md_t = std::ptr::read(&value.payload.ok);
+                    ManuallyDrop::into_inner(md_t)
+                };
+                std::mem::forget(value); // Prevent RocResult::drop on the hollowed 'value'
+                Result::Ok(t)
+            }
+            RocResultTag::Err => {
+                let e = unsafe {
+                    let md_e = std::ptr::read(&value.payload.err);
+                    ManuallyDrop::into_inner(md_e)
+                };
+                std::mem::forget(value); // Prevent RocResult::drop on the hollowed 'value'
+                Result::Err(e)
+            }
+        }
     }
 }
 
 impl<T, E> From<Result<T, E>> for RocResult<T, E> {
     fn from(value: Result<T, E>) -> Self {
-        todo!()
+        match value {
+            Ok(v) => RocResult::ok(v),
+            Err(e) => RocResult::err(e),
+        }
     }
 }
 
