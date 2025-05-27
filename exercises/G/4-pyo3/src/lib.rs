@@ -1,6 +1,6 @@
 #![allow(unused)]
 
-use pyo3::types::PyList;
+use pyo3::{exceptions::PyValueError, types::PyList};
 
 fn main() {
     use pyo3::prelude::*;
@@ -12,14 +12,29 @@ fn main() {
         Ok((a + b).to_string())
     }
 
-    // TODO add a `pointwise_sum` pyfunction
+    #[pyfunction]
+    fn pointwise_sum(mut a: Vec<f64>, b: Vec<f64>) -> PyResult<Vec<f64>> {
+        if a.len() != b.len() {
+            return Err(PyValueError::new_err(
+                "Input lists must have the same length",
+            ));
+        }
 
-    /// A Python module implemented in Rust.
+        // If 'a' is empty, 'b' must also be empty (due to the length check).
+        // In this case, an empty vector is the correct result.
+        if a.is_empty() {
+            return Ok(Vec::new());
+        }
+
+        unsafe { pointwise_sum_simd(&mut a, &b) }
+
+        Ok(a)
+    }
+
     #[pymodule]
     fn pointwise_simd(py: Python, m: &PyModule) -> PyResult<()> {
         m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
-        // TODO re-enable when pointwise_sum is defined
-        // m.add_function(wrap_pyfunction!(pointwise_sum, m)?)?;
+        m.add_function(wrap_pyfunction!(pointwise_sum, m)?)?;
 
         Ok(())
     }
@@ -37,13 +52,21 @@ unsafe fn pointwise_sum_simd(a: &mut [f64], b: &[f64]) {
     let mut index = 0;
 
     while index + WIDTH <= length {
-        // TODO: use simd instructions to complete the body of the loop
-        //
-        // useful functions
-        //
-        // - _mm_load_pd: load a pointer into a simd value
-        // - _mm_add_pd: add two simd values
-        // - _mm_storeu_pd: write a simd value to a pointer
+        // Get raw pointers to the current elements in slices 'a' and 'b'
+        let ptr_a = a.as_mut_ptr().add(index); // *mut f64
+        let ptr_b = b.as_ptr().add(index); // *const f64
+
+        // Load 2 f64s from 'a' and 'b' into SIMD registers.
+        // _mm_loadu_pd is used for potentially unaligned memory access.
+        let simd_val_a = _mm_loadu_pd(ptr_a); // Loads [a[index], a[index+1]]
+        let simd_val_b = _mm_loadu_pd(ptr_b); // Loads [b[index], b[index+1]]
+
+        // Perform pointwise addition in SIMD register.
+        let simd_sum = _mm_add_pd(simd_val_a, simd_val_b);
+
+        // Store the 2 f64 results from SIMD register back into slice 'a'.
+        // _mm_storeu_pd is used for potentially unaligned memory access.
+        _mm_storeu_pd(ptr_a, simd_sum); // Stores sum into [a[index], a[index+1]]
 
         index += WIDTH;
     }

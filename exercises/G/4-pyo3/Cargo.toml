@@ -12,3 +12,5 @@ crate-type = ["cdylib"]
 [dependencies.pyo3]
 version = "0.18.2"
 features = ["extension-module"]
+
+[workspace]

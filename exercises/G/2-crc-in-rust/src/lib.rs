@@ -44,3 +44,20 @@ const CRC32_TABLE: [u32; 256] = [
     0xBDBDF21C, 0xCABAC28A, 0x53B39330, 0x24B4A3A6, 0xBAD03605, 0xCDD70693, 0x54DE5729, 0x23D967BF,
     0xB3667A2E, 0xC4614AB8, 0x5D681B02, 0x2A6F2B94, 0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D,
 ];
+
+// Run with
+// clang main.c -L./target/debug -lcrc_in_rust -o main_program
+// # Or: clang main.c ./target/debug/libcrc_in_rust.so -o main_program
+// export LD_LIBRARY_PATH=./target/debug:$LD_LIBRARY_PATH # So the loader can find the .so
+// ./main_program
+
+#[no_mangle]
+pub extern "C" fn crc32(data_ptr: *const u8, data_length: usize) -> u32 {
+    if data_ptr.is_null() && data_length != 0 {
+        return 0;
+    }
+
+    let data_slice = unsafe { std::slice::from_raw_parts(data_ptr, data_length) };
+
+    crc32_rust(data_slice)
+}
