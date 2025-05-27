@@ -22,7 +22,12 @@ async fn main() -> Result<()> {
     let stream = TcpStream::connect("127.0.0.1:8000").await?;
     let (tcp_read, mut tcp_write) = stream.into_split();
 
-    todo!("Send {username:?} to the server as JSON, along with a newline");
+    // Send username to the server as JSON, along with a newline
+    let json = serde_json::to_string(&username)?;
+    tcp_write.write_all(json.as_bytes()).await?;
+    tcp_write.write_all(b"\n").await?;
+    tcp_write.flush().await?;
+
     println!("Connected! You can now enter messages!");
 
     let chat_input_task = task::spawn(handle_chat_input(stdin_lines, tcp_write));
@@ -35,9 +40,16 @@ async fn handle_chat_input(
     mut stdin: Lines<BufReader<Stdin>>,
     mut tcp_write: OwnedWriteHalf,
 ) -> Result<()> {
-    todo!("For every line of stdin, create a Message::SimpleMessage
-        containing the line as content, and send it to the server,
-        along with a newline");
+    // For every line of stdin, create a Message::ClientMessage
+    // containing the line as content, and send it to the server,
+    // along with a newline
+    while let Some(line) = stdin.next_line().await? {
+        let message = Message::ClientMessage(line);
+        let json = serde_json::to_string(&message)?;
+        tcp_write.write_all(json.as_bytes()).await?;
+        tcp_write.write_all(b"\n").await?;
+        tcp_write.flush().await?;
+    }
     Ok(())
 }
 

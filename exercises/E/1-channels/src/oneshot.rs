@@ -37,7 +37,29 @@ impl<T> Future for Receiver<T> {
         cx: &mut std::task::Context<'_>,
     ) -> std::task::Poll<Self::Output> {
         let mut inner = self.inner.lock().unwrap();
-        todo!("Implement me")
+
+        // Replace inner.waker with the one from the Context
+        inner.waker = Some(cx.waker().clone());
+
+        // Return Poll::Ready(Ok(T)) if inner.data is Some(T)
+        if let Some(data) = inner.data.take() {
+            return Poll::Ready(Ok(data));
+        }
+
+        // Return Poll::Ready(Err(Error::SenderDropped)) if the Sender was dropped
+        if inner.tx_dropped {
+            return Poll::Ready(Err(RecvError::SenderDropped));
+        }
+
+        // Return Poll::Pending if inner.data is None
+        Poll::Pending
+    }
+}
+
+impl<T> Drop for Receiver<T> {
+    fn drop(&mut self) {
+        let mut inner = self.inner.lock().unwrap();
+        inner.rx_dropped = true;
     }
 }
 
@@ -47,7 +69,41 @@ pub struct Sender<T> {
 
 impl<T> Sender<T> {
     pub fn send(self, value: T) -> Result<(), SendError<T>> {
-        todo!("Implement me")
+        {
+            let mut inner = self.inner.lock().unwrap();
+
+            // Return Err(Error::ReceiverDropped(T)) if the Receiver was dropped before sending
+            if inner.rx_dropped {
+                return Err(SendError::ReceiverDropped(value));
+            }
+
+            // Sending sets inner.data to Some(T)
+            inner.data = Some(value);
+
+            // Wake inner.waker after putting the data in inner.data
+            if let Some(waker) = &inner.waker {
+                waker.wake_by_ref();
+            }
+        } // The lock is dropped here
+
+        // Upon successfully sending the message, the consumed Sender is not marked as dropped.
+        // Instead std::mem::forget is used to avoid running the destructor.
+        std::mem::forget(self);
+
+        Ok(())
+    }
+}
+
+impl<T> Drop for Sender<T> {
+    fn drop(&mut self) {
+        let mut inner = self.inner.lock().unwrap();
+        // Once the Sender is dropped, it marks itself dropped with inner
+        inner.tx_dropped = true;
+
+        // Wake the receiver if it's waiting
+        if let Some(waker) = &inner.waker {
+            waker.wake_by_ref();
+        }
     }
 }
 
