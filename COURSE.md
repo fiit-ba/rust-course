@@ -353,11 +353,11 @@ In the tutorials, the focus lies on applying the content of the prior lecture by
 | 2    | A2, <br />A3 | Ecosystem and tools<br />Advanced Syntax, Ownership, references |                               |
 | 3    | A3           | Traits and generics                                             |                               |
 | 4    | B            | Application programming                                         |                               |
-| 5    | C            | Multitasking                                                    |                               |
-| 6    | D            | Idiomatic Rust patterns                                         | Project proposal reminder     |
-| 7    | E            | Rust for web                                                    | Deadline project proposal     |
-| 8    | F            | Safe Unsafe Rust                                                | Project proposal resubmission |
+| 5    | C            | Multitasking                                                    | Project proposal reminder     |
+| 6    | D            | Idiomatic Rust patterns                                         | Deadline project proposal     |
+| 7    | E            | Rust for web                                                    | Project proposal resubmission |
+| 8    | F            | Safe Unsafe Rust                                                |                               |
 | 9    | G            | FFI and Dynamic modules                                         |                               |
 | 10   | P            | Final project                                                   |                               |
-| 11   | P            | Final project                                                   |                               |
+| 11   | P            | Final project presentation                                      |                               |
 | 12   | P            | Final project submission and presentation                       |                               |
