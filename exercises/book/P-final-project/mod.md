@@ -5,10 +5,13 @@ It is time to submit a proposal for the final project.
 - Form groups of 2 or 3 people. _Working solo is not permitted_.
 - Build a small Rust project yourselves
 - Up to 2 groups can work on the same topic
+- We will send you a link to GitHub Classroom, where you will have a repository for your 2–3 person team.
 
 ## Proposal
 
-The proposal needs to be submitted by _19th of March, 2025_ by opening a Github repo, placing your proposal there, and either making it public or granting access to [`@xkostal`](https://github.com/xkostal/) & [`@lukacoff`](https://github.com/lukacoff). Then, please send Lukas and Kristian a link to the repository via message so we know where to find it.
+The proposal needs to be submitted in Markdown format by _24th of March, 2026_ to your repository in GitHub Classroom.
+
+Name your proposal file: PROPOSAL.md.
 
 The proposal must contain the following sections:
 - Your names
@@ -19,11 +22,11 @@ The proposal must contain the following sections:
 
 Of course, if you want to discuss your idea before handing in your proposal, or if you have any other questions, please reach out via message.
 
-Any reparations to the proposals must be handed in on the _30th of March 2025_
+Any reparations to the proposals must be handed in on the _1st of April 2026_
 
 ## Final product
 
-At the end of the project following will be required (deadline is the _14th of May, 2025_)
+At the end of the project following will be required (deadline is the _29th of April, 2026_, 12:00 pm)
 
 - The source of your project (GitHub)
 - A live 10 minute presentation, including a _short_ demonstration (and an additional 2 minutes for questions) during the final lecture
