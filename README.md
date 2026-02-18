@@ -39,7 +39,7 @@ When used in full 12-week format, the schedule is:
 | 8    | F            | Safe Unsafe Rust                         |
 | 9    | G            | FFI and Dynamic modules                  |
 | 10   | P            | Final project                            |
-| 11   | P            | Final project                            |
+| 11   | P            | Final project presentation                          |
 | 12   | P            | Final project presentation               |
 
 The course assumes intermediate C/C++ knowledge.

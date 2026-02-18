@@ -26,7 +26,7 @@ Any reparations to the proposals must be handed in on the _1st of April 2026_
 
 ## Final product
 
-At the end of the project following will be required (deadline is the _29th of April, 2026_, 12:00 pm)
+At the end of the project following will be required (deadline is the _13th of May, 2026_)
 
 - The source of your project (GitHub)
 - A live 10 minute presentation, including a _short_ demonstration (and an additional 2 minutes for questions) during the final lecture

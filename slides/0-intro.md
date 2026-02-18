@@ -75,16 +75,16 @@ layout: default
 
 - A bigger project involving Rust
 - Work in teams of 2
-- Hand in proposal in **week 7 before lecture**
-  - Any reparations due in **week 8 before lecture**
-- Write small report (2-3 pages), to be handed in in **week 12 before lecture**
+- Hand in proposal in **week 6 before lecture**
+  - Any reparations due in **week 7 before lecture**
+- Write small report (2-3 pages), to be handed in in **week 11 or week 12 before lecture**
     - Introduction
     - Requirements
     - Design overview diagram
     - Design choices
     - Dependencies
     - Evaluation
-- Present project in about 5-10 minutes in **week 12 during lecture/tutorial**
+- Present project in about 5-10 minutes in **week 11 or week 12 during lecture/tutorial**
 
 ---
 layout: default
